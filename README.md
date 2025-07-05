@@ -59,7 +59,7 @@ python second_data_set/resize.py # Resizing images of second dataset and correct
 
 
 ## Project Structure
-
+```
 YOLOPilot/
 ├── first_dataset/
 │ ├── train
@@ -109,7 +109,7 @@ YOLOPilot/
 ├── yolopilot_app.py
 ├── Dockerfile
 └── README.md
-
+```
 
 ## Train the Model
 
