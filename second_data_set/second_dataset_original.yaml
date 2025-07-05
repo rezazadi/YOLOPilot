@@ -1,0 +1,13 @@
+train: C:/Users/azadi/Desktop/project/YOLOPilot/second_data_set/train_orginal/images
+val: C:/Users/azadi/Desktop/project/YOLOPilot/second_data_set/val_orginal/images
+test: C:/Users/azadi/Desktop/project/YOLOPilot/second_data_set/test_orginal/images
+
+nc: 4  # number of classes
+names: ['motobike', 'person', 'traffic_light', 'vehicle']  # adjust to your class names
+
+# roboflow:
+#  workspace: carla-m1eac
+#  project: carla-object-detection-model-8usui
+#  version: 1
+#  license: CC BY 4.0
+#  url: https://universe.roboflow.com/carla-m1eac/carla-object-detection-model-8usui/dataset/1
