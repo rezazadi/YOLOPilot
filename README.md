@@ -42,6 +42,20 @@ Main libraries used:
 
 - numpy
 
+### Datasets
+
+This project uses two publicly available datasets for object detection in self-driving car scenarios:
+
+1. [Object Detection - CARLA Self-Driving Car](https://www.kaggle.com/datasets/ibrahimalobaid/object-detection-carla-self-driving-car)
+2. [Self-Driving Cars Dataset](https://www.kaggle.com/datasets/alincijov/self-driving-cars)
+
+### Important:
+
+Before training, both datasets require label formatting and structural adjustments:
+
+- The label files must follow YOLO format (.txt) and contain only the unified class mappings used in this project.
+
+- For details on how labels are modified and how the datasets should be structured (images, labels, labels_old, etc.), please refer to the Project Structure and Preprocessing Scripts sections above in this README.
 
 ## Usage
 
@@ -128,6 +142,14 @@ model_arch = "first_dataset/runs/dataset1_yolov8_imgsz416_epoch50/weights/best.p
 ```
 Make sure you also adjust the data YAML and project output names accordingly when switching between datasets.
 
+
+## Postprocessing
+
+After training or running inference, you can use the following scripts for evaluation and inspection:
+
+- **`PostProcessing_box.py`**: Visualizes the predicted and actual bounding boxes on all images in a dataset folder.
+- **`valid_total.py`**: Evaluates the trained model on a specific dataset folder (such as `test` or `valid`) and to generate confusion matrix.
+
 ## Run the App
 Start the Gradio app locally:
 
@@ -140,3 +162,13 @@ python yolopilot.py
 <p align="center">
   <img src="docs/images/application.png" alt="YOLOPilot App Screenshot" width="600"/>
 </p>
+
+
+## Deployment
+
+Install YOLOPilot with Docker:
+
+```bash
+docker build -t yolopilot .
+docker run -p 7861:7861 yolopilot
+```
