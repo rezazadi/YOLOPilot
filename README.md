@@ -61,13 +61,10 @@ Before training, both datasets require label formatting and structural adjustmen
 
 ### Preprocessing
 
-Run the label converter and image splitter before training:
+Run the Preprocessing script before training:
 
 ``` bash
-python First_data_set/label_modify.py # Label correction of first dataset
-python second_data_set/label_modify.py # Label correction of second dataset
-python second_data_set/split.py # Images of second dataset must be split according to lables
-python second_data_set/resize.py # Resizing images of second dataset and correct the lables to from 480x300 to 416x416 pixels
+python PreProcessing.py # Label correction of first dataset and second dataset, spliting the seocnd dataset and resizing images and correct lables of second dataset from 480x300 to 416x416 pixels
 ```
 
 
@@ -88,7 +85,6 @@ YOLOPilot/
 │ │ ├── images
 │ │ ├── lables_old
 │ │ └── lables
-│ ├──label_modify.py
 │ └── runs → Results after training
 │ 
 ├── second_dataset/
@@ -105,10 +101,12 @@ YOLOPilot/
 │ ├── new_labels
 │ ├── images_resized
 │ ├── resized_labels
-│ ├──label_modify.py
-│ ├──resize.py
-│ ├──split.py
 │ └── runs → Results after training
+│
+├── src/
+│ ├── label_modifier.py
+│ ├── second_dataset_resizer.py
+│ ├── second_dataset_splitter.py
 │
 ├── docs/
 │ ├── images/
@@ -116,8 +114,8 @@ YOLOPilot/
 │ │ └── app_screenshot.png
 │
 ├── PostProcessing_box.py
+├── PreProcessing.py
 ├── train_total.py
-├── valid_total.py
 ├── Dockerfile
 ├── requirements.txt
 ├── yolopilot_app.py
@@ -138,7 +136,7 @@ The script will use the model architecture specified by the model_arch variable 
 To apply transfer learning, change the model_arch in train_yolov8.py to point to the best weights of the first dataset:
 
 ```bash
-model_arch = "first_dataset/runs/dataset1_yolov8_imgsz416_epoch50/weights/best.pt"
+model_arch = "first_data_set/runs/dataset1_yolov8_imgsz416_epoch50/weights/best.pt"
 ```
 Make sure you also adjust the data YAML and project output names accordingly when switching between datasets.
 
@@ -147,8 +145,7 @@ Make sure you also adjust the data YAML and project output names accordingly whe
 
 After training or running inference, you can use the following scripts for evaluation and inspection:
 
-- **`PostProcessing_box.py`**: Visualizes the predicted and actual bounding boxes on all images in a dataset folder.
-- **`valid_total.py`**: Evaluates the trained model on a specific dataset folder (such as `test` or `valid`) and to generate confusion matrix.
+- **`PostProcessing_box.py`**: Visualizes the predicted and actual bounding boxes on all images in a dataset folder, and Evaluates the trained model on a specific dataset folder (such as `test` or `valid`) and to generate confusion matrix.
 
 ## Run the App
 Start the Gradio app locally:

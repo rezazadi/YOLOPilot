@@ -1,6 +1,7 @@
-train: C:/Users/azadi/Desktop/project/YOLOPilot/First_data_set/train/images
-val: C:/Users/azadi/Desktop/project/YOLOPilot/First_data_set/valid/images
-test: C:/Users/azadi/Desktop/project/YOLOPilot/First_data_set/test/images
+path: .
+train: first_data_set/train/images
+val: first_data_set/valid/images
+test: first_data_set/test/images
 
 nc: 4  # number of classes
 names: ['motobike', 'person', 'traffic_light', 'vehicle']  # adjust to your class names

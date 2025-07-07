@@ -12,12 +12,15 @@ from sklearn.metrics import confusion_matrix
 model_path = "second_data_set/runs/dataset2_yolov8_imgsz640_epoch50_original/weights/best.pt"
 test_dir = "second_data_set/val_orginal/images"
 label_dir = "second_data_set/val_orginal/labels"
-output_dir = Path("After_transfore/eval_outputs_orginal")
+output_dir = Path("After_transform/test")
 prediction_vis_dir = output_dir / "visualized"
 mismatch_dir = output_dir / "mismatched"
-output_dir.mkdir(exist_ok=True)
+os.makedirs(output_dir, exist_ok=True)
 prediction_vis_dir.mkdir(exist_ok=True)
 mismatch_dir.mkdir(exist_ok=True)
+data_yaml = "second_data_set/second_dataset.yaml"
+
+
 
 class_names = ["motobike", "person", "traffic_light", "vehicle"]
 GT_class_map = {i: name for i, name in enumerate(class_names)}
@@ -98,3 +101,25 @@ for i, result in enumerate(results):
     # Save mismatched image
     if mismatch_flag:
         shutil.copy(image_path, mismatch_dir / Path(image_path).name)
+
+
+
+
+# Load model
+model = YOLO(model_path)
+
+# Run evaluation
+results = model.val(data=data_yaml, split="val", save=True, plots=True)
+
+# Print out key metrics
+print("📊 Validation Results Summary:")
+print("Metrics Dictionary:", results.results_dict)
+print("Class Names:", results.names)
+
+# Try to save confusion matrix if it exists
+conf_matrix = results.confusion_matrix
+if conf_matrix and conf_matrix.matrix is not None:
+    conf_matrix.plot(save_dir=output_dir)
+    print("✅ Official-style confusion matrix saved to", output_dir)
+else:
+    print("⚠️ No confusion matrix could be generated.")
