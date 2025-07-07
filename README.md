@@ -151,7 +151,7 @@ After training or running inference, you can use the following scripts for evalu
 Start the Gradio app locally:
 
 ```bash
-python yolopilot.py
+python yolopilot_app.py
 ```
 
 ### Application Screenshot
@@ -166,6 +166,6 @@ python yolopilot.py
 Install YOLOPilot with Docker:
 
 ```bash
-docker build -t yolopilot .
-docker run -p 7861:7861 yolopilot
+docker build -t yolopilot_app .
+docker run -p 7861:7861 yolopilot_app
 ```
